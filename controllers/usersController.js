@@ -49,18 +49,30 @@ const createNewUser = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
   const { id, username, roles, active, password } = req.body;
 
-  if (!username || !password || !Array.isArray(roles) || !roles.length) {
-    return res.status(400).json({ message: "All fields are required" });
+  // Confirm data
+  if (
+    !id ||
+    !username ||
+    !Array.isArray(roles) ||
+    !roles.length ||
+    typeof active !== "boolean"
+  ) {
+    return res
+      .status(400)
+      .json({ message: "All fields except password are required" });
   }
 
+  // Does the user exist to update?
   const user = await User.findById(id).exec();
 
   if (!user) {
     return res.status(400).json({ message: "User not found" });
   }
 
+  // Check for duplicate
   const duplicate = await User.findOne({ username }).lean().exec();
 
+  // Allow updates to the original user
   if (duplicate && duplicate?._id.toString() !== id) {
     return res.status(409).json({ message: "Duplicate username" });
   }
