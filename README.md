@@ -1,11 +1,13 @@
-# techNotes Backend
+# techNotes API
 
 The backend of a MERN stack app to replace the notes system of a ficticious business.
 
-Connected to my [techNotes-frontend](https://github.com/remilebeau/techNotes-frontend)
+[Front-end code](https://github.com/remilebeau/techNotes)
 
 ## Created with
 
 - MongoDB
 - Express.js
 - Node.js
+
+Because this app is hosted on the free tier of [Render](https://render.com), please allow up to 60 seconds for the first request.
